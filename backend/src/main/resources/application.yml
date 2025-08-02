@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: shipmanager
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shipdb
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
