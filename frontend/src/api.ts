@@ -1,7 +1,9 @@
 import * as axios from "axios";
 
 const api = axios.default.create({
-    baseURL: "http://localhost:8080/api/"
+    baseURL: "http://localhost:8080/api/",
+    withCredentials: true
+
 });
 
 export type ShipInput = {
@@ -16,7 +18,15 @@ export type ShipOutput = {
     createdAt: string;
 }
 
-export const getAllShips = () => api.get<ShipOutput[]>('/ships');
-export const getShipById = (id: number) => api.get<ShipOutput>(`/ships/${id}`);
-export const createShip = (payload: ShipInput) => api.post('/ships', payload);
-export const updateShip = (id: number, payload: ShipInput) => api.put(`/ships/${id}`, payload);
+export const getAllShips = (authData: string) => api.get<ShipOutput[]>('/ships', {
+    headers: { 'Authorization': 'Basic ' + authData }
+});
+export const getShipById = (id: number, authData: string) => api.get<ShipOutput>(`/ships/${id}`, {
+    headers: { 'Authorization': 'Basic ' + authData }
+});
+export const createShip = (payload: ShipInput, authData: string) => api.post('/ships', payload, {
+    headers: { 'Authorization': 'Basic ' + authData }
+});
+export const updateShip = (id: number, payload: ShipInput, authData: string) => api.put(`/ships/${id}`, payload, {
+    headers: { 'Authorization': 'Basic ' + authData }
+});

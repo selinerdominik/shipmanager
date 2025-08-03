@@ -1,7 +1,9 @@
 import {createShip, type ShipInput} from "../api.ts";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {BasicAuthContext} from "../AuthProvider.tsx";
 
 export default function ShipNewForm() {
+    const authData = useContext(BasicAuthContext).user;
     const [formData, setFormData] = useState<ShipInput>({
         name: "",
         description: ""
@@ -14,7 +16,8 @@ export default function ShipNewForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await createShip(formData);
+            if (!authData) return;
+            await createShip(formData, authData);
         } catch (e) {
             console.error(e);
         }

@@ -1,9 +1,11 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {updateShip, type ShipInput, getShipById} from "../api.ts";
 import {useParams} from "react-router-dom";
+import {BasicAuthContext} from "../AuthProvider.tsx";
 
 export default function ShipEditForm() {
+    const authData = useContext(BasicAuthContext).user;
     const { id } = useParams();
     const [formData, setFormData] = useState<ShipInput>(
         {
@@ -14,11 +16,12 @@ export default function ShipEditForm() {
 
     useEffect(() => {
         if (!id) return;
-        getShipById(parseInt(id)).then(res => {
+        if (!authData) return;
+        getShipById(parseInt(id), authData).then(res => {
             const { name, description } = res.data;
             setFormData({ name, description})
         }).catch(console.error);
-    }, [id]);
+    }, [id, authData]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value});
@@ -27,11 +30,10 @@ export default function ShipEditForm() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!id) return;
-        updateShip(parseInt(id), formData);
+        if (!authData) return;
+        updateShip(parseInt(id), formData, authData);
         return undefined;
     }
-
-    console.log(formData);
 
     return (
         <div>

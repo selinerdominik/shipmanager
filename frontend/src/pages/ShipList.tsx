@@ -1,13 +1,16 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getAllShips, type ShipOutput} from "../api.ts";
 import {Link} from "react-router-dom";
+import {BasicAuthContext} from "../AuthProvider.tsx";
 
 export default function ShipList() {
+    const authData = useContext(BasicAuthContext).user;
     const [ships, setShips] = useState<ShipOutput[]>([]);
 
     useEffect(() => {
-        getAllShips().then(res => setShips(res.data)).catch(console.error);
-    }, []);
+        if (!authData) return;
+        getAllShips(authData).then(res => setShips(res.data)).catch(console.error);
+    }, [authData]);
 
     return (
         <div>
