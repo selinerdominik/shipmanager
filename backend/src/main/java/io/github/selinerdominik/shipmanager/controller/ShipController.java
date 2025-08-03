@@ -4,6 +4,7 @@ import io.github.selinerdominik.shipmanager.dto.ship.ShipInput;
 import io.github.selinerdominik.shipmanager.dto.ship.ShipOutput;
 import io.github.selinerdominik.shipmanager.model.Ship;
 import io.github.selinerdominik.shipmanager.service.ShipService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ShipController {
         this.shipService = shipService;
     }
 
+    @SecurityRequirement(name = "basicAuth")
     @GetMapping
     public Stream<ShipOutput> getAll() {
         return shipService.getAllShips().stream().map(
@@ -31,6 +33,7 @@ public class ShipController {
         );
     }
 
+    @SecurityRequirement(name = "basicAuth")
     @GetMapping("/{id}")
     public ShipOutput getById(@PathVariable Long id) {
         Ship ship = shipService.getShipById(id);
@@ -42,6 +45,7 @@ public class ShipController {
         );
     }
 
+    @SecurityRequirement(name = "basicAuth")
     @PostMapping
     public ShipOutput createShip(@RequestBody ShipInput shipInput) {
         Ship newShip = shipService.saveShip(new Ship(shipInput.getName(), shipInput.getDescription()));
@@ -53,6 +57,7 @@ public class ShipController {
         );
     }
 
+    @SecurityRequirement(name = "basicAuth")
     @PutMapping("/{id}")
     public ShipOutput updateShip(@PathVariable Long id, @RequestBody ShipInput shipInput) {
         Ship updatedShip = shipService.updateShip(id, new Ship(shipInput.getName(), shipInput.getDescription()));
