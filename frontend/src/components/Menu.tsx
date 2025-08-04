@@ -1,5 +1,5 @@
 import {Link, useNavigate} from "react-router-dom";
-import {BasicAuthContext} from "../AuthProvider.tsx";
+import {BasicAuthContext} from "./AuthProvider.tsx";
 import {useContext} from "react";
 
 export default function Menu() {
@@ -10,8 +10,6 @@ export default function Menu() {
             <Link to="/">Home</Link>
             -
             <Link to="/create">Create Ship</Link>
-            -
-            <Link to="/login">Login</Link>
             -
             <a href="#" onClick={() => {
                 basicAuthContext.logout();
