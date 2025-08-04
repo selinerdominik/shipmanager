@@ -33,7 +33,7 @@ export default function ShipList() {
 
     return (
         <div>
-            <h1 className="text-xl font-bold mb-2">Ships</h1>
+            <h1>Ships</h1>
             <table>
 
                 <thead>

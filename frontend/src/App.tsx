@@ -13,7 +13,7 @@ function App() {
   return (
       <AuthProvider>
           <ProtectedResource>
-              <div className="p-4">
+              <div>
                   <Menu />
                   <Routes>
                       <Route path="/" element={<ShipList />} />

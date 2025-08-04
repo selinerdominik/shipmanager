@@ -6,7 +6,7 @@ export default function Menu() {
     const basicAuthContext = useContext(BasicAuthContext);
     const navigate = useNavigate();
     return (
-        <nav className="mb-4 space-x-4">
+        <nav>
             <Link to="/">Home</Link>
             -
             <Link to="/create">Create Ship</Link>

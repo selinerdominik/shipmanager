@@ -18,8 +18,9 @@ export default function ShipDetail() {
 
     return (
         <div>
-            <h1 className="text-xl font-bold mb-2">{ship.name}</h1>
-            <p className="mb-2"><strong>Description:</strong> {ship.description}</p>
+            <h1>View Ship "{ship.name}"</h1>
+            <p><strong>ID:</strong> {ship.id}</p>
+            <p><strong>Description:</strong> {ship.description}</p>
             <p><strong>Created at:</strong> {new Date(ship.createdAt).toLocaleString('de-CH')}</p>
             <Link to={`/edit/${ship.id}`}>Edit Ship</Link>
         </div>
