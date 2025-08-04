@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getAllShips, type ShipOutput} from "../api.ts";
+import {getAllShips, deleteShip as apiDeleteShip, type ShipOutput} from "../api.ts";
 import {Link} from "react-router-dom";
 import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 
@@ -17,6 +17,19 @@ export default function ShipList() {
             console.log(res.data);
         }).catch(console.error);
     }, [authData, page]);
+
+    const deleteShip = async (id: number) => {
+        if (!authData) return;
+        if (window.confirm('Are you sure you want to delete this ship?')) {
+            try {
+                await apiDeleteShip(id, authData);
+                setShips(ships.filter(ship => ship.id !== id));
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
 
     return (
         <div>
@@ -37,6 +50,11 @@ export default function ShipList() {
                             <Link to={`/ships/${ship.id}`}>View</Link>
                             |
                             <Link to={`/edit/${ship.id}`}>Edit</Link>
+                            |
+                            <Link to="#" onClick={(e) => {
+                                e.preventDefault();
+                                deleteShip(ship.id);
+                            }} className="deleteLink">Delete</Link>
                         </td>
                     </tr>
                 ))}

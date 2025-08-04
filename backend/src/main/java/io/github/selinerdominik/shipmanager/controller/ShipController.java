@@ -77,4 +77,12 @@ public class ShipController {
                 updatedShip.getCreatedAt().toString()
         );
     }
+
+
+    @SecurityRequirement(name = "basicAuth")
+    @DeleteMapping("/{id}")
+    public void deleteShip(@PathVariable Long id) {
+        shipService.deleteShip(id);
+    }
+
 }

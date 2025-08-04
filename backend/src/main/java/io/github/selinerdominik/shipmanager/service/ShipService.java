@@ -43,4 +43,11 @@ public class ShipService {
         existingShip.setDescription(ship.getDescription());
         return shipRepository.save(existingShip);
     }
+
+    public void deleteShip(Long id) {
+        Ship ship = shipRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Ship not found"));
+        shipRepository.delete(ship);
+    }
+
+
 }

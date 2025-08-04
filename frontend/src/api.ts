@@ -35,5 +35,8 @@ export const createShip = (payload: ShipInput, authData: string) => api.post('/s
 export const updateShip = (id: number, payload: ShipInput, authData: string) => api.put(`/ships/${id}`, payload, {
     headers: { 'Authorization': 'Basic ' + authData }
 });
-// TODO: Delete Ship call
+export const deleteShip = (id: number, authData: string) => api.delete(`/ships/${id}`, {
+    headers: {'Authorization': 'Basic ' + authData}
+});
+
 // TODO: Login API call
