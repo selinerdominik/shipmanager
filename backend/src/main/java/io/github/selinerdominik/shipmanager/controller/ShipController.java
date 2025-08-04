@@ -1,14 +1,14 @@
 package io.github.selinerdominik.shipmanager.controller;
 
 import io.github.selinerdominik.shipmanager.dto.ship.ShipInput;
+import io.github.selinerdominik.shipmanager.dto.ship.ShipListOutput;
 import io.github.selinerdominik.shipmanager.dto.ship.ShipOutput;
 import io.github.selinerdominik.shipmanager.model.Ship;
 import io.github.selinerdominik.shipmanager.service.ShipService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("api/ships")
@@ -21,8 +21,14 @@ public class ShipController {
 
     @SecurityRequirement(name = "basicAuth")
     @GetMapping
-    public Stream<ShipOutput> getAll() {
-        return shipService.getAllShips().stream().map(
+    public ShipListOutput getAll(
+            @RequestParam int page,
+            @Parameter(description = "Number of items per page", schema = @Schema(minimum = "1"))
+            @RequestParam int size) {
+        if (size < 1) {
+            throw new IllegalArgumentException("Page size must be greater than 0");
+        }
+        ShipOutput[] ships = shipService.getAllShips(page, size).stream().map(
                 ship -> {
                     return new ShipOutput(
                             ship.getId(),
@@ -30,7 +36,10 @@ public class ShipController {
                             ship.getDescription(),
                             ship.getCreatedAt().toString());
                 }
-        );
+        ).toArray(ShipOutput[]::new);
+        int shipCount = (int) shipService.getShipCount();
+        int pageCount = ((shipCount - 1) / size) + 1;
+        return new ShipListOutput(ships, pageCount);
     }
 
     @SecurityRequirement(name = "basicAuth")

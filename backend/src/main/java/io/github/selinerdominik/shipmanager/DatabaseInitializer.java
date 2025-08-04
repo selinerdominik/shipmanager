@@ -19,8 +19,8 @@ public class DatabaseInitializer implements CommandLineRunner {
         if (shipRepository.count() > 0) {
             return;
         }
-        shipRepository.save(new Ship("Test Ship 1", "Test Ship Description 1"));
-        shipRepository.save(new Ship("Test Ship 2", "Test Ship Description 2"));
-        shipRepository.save(new Ship("Test Ship 3", "Test Ship Description 3"));
+        for (int i = 0; i < 101; i++) {
+            shipRepository.save(new Ship("Test Ship " + i, "Test Ship Description " + i));
+        }
     }
 }

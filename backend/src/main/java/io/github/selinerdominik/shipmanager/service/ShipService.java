@@ -3,6 +3,7 @@ package io.github.selinerdominik.shipmanager.service;
 import io.github.selinerdominik.shipmanager.model.Ship;
 import io.github.selinerdominik.shipmanager.repository.ShipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,15 @@ public class ShipService {
 
     public List<Ship> getAllShips() {
         return shipRepository.findAll();
+    }
+
+    public List<Ship> getAllShips(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return shipRepository.findAll(pageRequest).getContent();
+    }
+
+    public long getShipCount() {
+        return shipRepository.count();
     }
 
     public Ship getShipById(Long id) {
