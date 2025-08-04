@@ -1,10 +1,10 @@
 import {Link, useParams} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {getShipById, type ShipOutput} from "../api.ts";
-import {BasicAuthContext} from "../AuthProvider.tsx";
+import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 
 export default function ShipDetail() {
-    const authData = useContext(BasicAuthContext).user;
+    const authData = useRequireAuth();
     const { id } = useParams();
     const [ship, setShip] = useState<ShipOutput>();
 
@@ -19,8 +19,8 @@ export default function ShipDetail() {
     return (
         <div>
             <h1 className="text-xl font-bold mb-2">{ship.name}</h1>
-            <p className="mb-2">{ship.description}</p>
-            <p>Created at: {new Date(ship.createdAt).toLocaleString()}</p>
+            <p className="mb-2"><strong>Description:</strong> {ship.description}</p>
+            <p><strong>Created at:</strong> {new Date(ship.createdAt).toLocaleString('de-CH')}</p>
             <Link to={`/edit/${ship.id}`}>Edit Ship</Link>
         </div>
     );

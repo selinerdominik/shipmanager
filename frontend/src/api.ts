@@ -18,7 +18,12 @@ export type ShipOutput = {
     createdAt: string;
 }
 
-export const getAllShips = (authData: string) => api.get<ShipOutput[]>('/ships', {
+export type ShipListOutput = {
+    ships: ShipOutput[];
+    totalPages: number;
+}
+
+export const getAllShips = (authData: string, page: number, size: number) => api.get<ShipListOutput>('/ships?page=' + page + '&size=' + size, {
     headers: { 'Authorization': 'Basic ' + authData }
 });
 export const getShipById = (id: number, authData: string) => api.get<ShipOutput>(`/ships/${id}`, {
@@ -30,3 +35,5 @@ export const createShip = (payload: ShipInput, authData: string) => api.post('/s
 export const updateShip = (id: number, payload: ShipInput, authData: string) => api.put(`/ships/${id}`, payload, {
     headers: { 'Authorization': 'Basic ' + authData }
 });
+// TODO: Delete Ship call
+// TODO: Login API call

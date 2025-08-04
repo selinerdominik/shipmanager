@@ -1,8 +1,10 @@
 import {useContext} from "react";
 import {BasicAuthContext} from "../AuthProvider.tsx";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
     const basicAuthContext = useContext(BasicAuthContext);
+    const navigate = useNavigate();
 
     const login = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -10,6 +12,8 @@ export default function Login() {
         const username = formData.get('username') as string;
         const password = formData.get('password') as string;
         basicAuthContext.login(window.btoa(username + ':' + password));
+        navigate('/');
+
     }
 
     return(

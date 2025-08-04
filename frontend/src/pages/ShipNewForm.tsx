@@ -1,9 +1,10 @@
 import {createShip, type ShipInput} from "../api.ts";
-import {useContext, useState} from "react";
-import {BasicAuthContext} from "../AuthProvider.tsx";
+import {useState} from "react";
+import * as React from "react";
+import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 
 export default function ShipNewForm() {
-    const authData = useContext(BasicAuthContext).user;
+    const authData = useRequireAuth();
     const [formData, setFormData] = useState<ShipInput>({
         name: "",
         description: ""
@@ -27,13 +28,16 @@ export default function ShipNewForm() {
 
     return (
         <div>
+            <h1>Create Ship</h1>
             <form onSubmit={handleSubmit}>
+                <label htmlFor="description">Name:</label>
                 <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                 />
+                <label htmlFor="description">Description:</label>
                 <input
                     type="text"
                     name="description"

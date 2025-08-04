@@ -1,11 +1,11 @@
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {updateShip, type ShipInput, getShipById} from "../api.ts";
 import {useParams} from "react-router-dom";
-import {BasicAuthContext} from "../AuthProvider.tsx";
+import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 
 export default function ShipEditForm() {
-    const authData = useContext(BasicAuthContext).user;
+    const authData = useRequireAuth();
     const { id } = useParams();
     const [formData, setFormData] = useState<ShipInput>(
         {
@@ -37,16 +37,21 @@ export default function ShipEditForm() {
 
     return (
         <div>
+            <h1>Edit Ship</h1>
             <form onSubmit={handleSubmit}>
+                <label htmlFor="name">Name:</label>
                 <input
                     type="text"
                     name="name"
+                    id="name"
                     value={formData.name}
                     onChange={handleChange}
                 />
+                <label htmlFor="description">Description:</label>
                 <input
                     type="text"
                     name="description"
+                    id="description"
                     value={formData.description}
                     onChange={handleChange}
                 />
