@@ -7,6 +7,7 @@ import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 export default function ShipEditForm() {
     const authData = useRequireAuth();
     const { id } = useParams();
+    const [confirmation, setConfirmation] = useState<boolean>(false);
     const [formData, setFormData] = useState<ShipInput>(
         {
             name: "",
@@ -32,31 +33,35 @@ export default function ShipEditForm() {
         if (!id) return;
         if (!authData) return;
         updateShip(parseInt(id), formData, authData);
+        setConfirmation(true);
         return undefined;
     }
 
     return (
         <div>
             <h1>Edit Ship</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                />
-                <label htmlFor="description">Description:</label>
-                <input
-                    type="text"
-                    name="description"
-                    id="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                />
-                <button type="submit">Submit</button>
-            </form>
+            {confirmation && <p>Ship updated successfully!</p>}
+            {!confirmation &&
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="name">Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="description">Description:</label>
+                    <input
+                        type="text"
+                        name="description"
+                        id="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">Submit</button>
+                </form>
+            }
         </div>
     );
 }

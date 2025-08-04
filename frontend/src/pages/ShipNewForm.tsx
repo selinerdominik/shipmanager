@@ -5,6 +5,7 @@ import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 
 export default function ShipNewForm() {
     const authData = useRequireAuth();
+    const [confirmation, setConfirmation] = useState<boolean>(false);
     const [formData, setFormData] = useState<ShipInput>({
         name: "",
         description: ""
@@ -19,6 +20,7 @@ export default function ShipNewForm() {
         try {
             if (!authData) return;
             await createShip(formData, authData);
+            setConfirmation(true);
         } catch (e) {
             console.error(e);
         }
@@ -29,23 +31,26 @@ export default function ShipNewForm() {
     return (
         <div>
             <h1>Create Ship</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="description">Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                />
-                <label htmlFor="description">Description:</label>
-                <input
-                    type="text"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                />
-                <button type="submit">Submit</button>
-            </form>
+            {confirmation && <p>Ship created successfully!</p>}
+            {!confirmation &&
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="description">Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="description">Description:</label>
+                    <input
+                        type="text"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">Submit</button>
+                </form>
+            }
         </div>
     );
 }

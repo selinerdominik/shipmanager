@@ -38,6 +38,7 @@ export default function ShipList() {
 
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Actions</th>
                     </tr>
@@ -45,6 +46,7 @@ export default function ShipList() {
                 <tbody>
                 {ships.map(ship => (
                     <tr key={ship.id}>
+                        <td>{ship.id}</td>
                         <td>{ship.name}</td>
                         <td>
                             <Link to={`/ships/${ship.id}`}>View</Link>
