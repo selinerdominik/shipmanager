@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getAllShips, deleteShip as apiDeleteShip, type ShipOutput} from "../api.ts";
+import {getAllShips, deleteShip as apiDeleteShip, type ShipOutput} from "../util/api.ts";
 import {Link} from "react-router-dom";
 import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 

@@ -1,4 +1,4 @@
-import {createShip, type ShipInput} from "../api.ts";
+import {createShip, type ShipInput} from "../util/api.ts";
 import {useState} from "react";
 import * as React from "react";
 import {useRequireAuth} from "../hooks/useRequireAuth.ts";

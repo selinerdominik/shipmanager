@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getShipById, type ShipOutput} from "../api.ts";
+import {getShipById, type ShipOutput} from "../util/api.ts";
 import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 
 export default function ShipDetail() {

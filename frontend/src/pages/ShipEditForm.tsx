@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {updateShip, type ShipInput, getShipById} from "../api.ts";
+import {updateShip, type ShipInput, getShipById} from "../util/api.ts";
 import {useParams} from "react-router-dom";
 import {useRequireAuth} from "../hooks/useRequireAuth.ts";
 
