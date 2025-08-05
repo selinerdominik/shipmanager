@@ -1,12 +1,20 @@
-"Shipmanager" is a simple full stack utilizing Spring Boot for its backend,a simple React SPA for its frontend and Postgresql as the database.
+# Shipmanager
 
-## Requirements:
-Java 21
-Node.js 22
-Docker
+**Shipmanager** is a simple full-stack application that uses:
+- **Spring Boot** for its backend  
+- **React** (Single-Page Application) for its frontend  
+- **PostgreSQL** as its database  
+
+---
+
+## Requirements
+
+- **Java** 21  
+- **Node.js** 22  
+- **Docker** (to run PostgreSQL via Docker Compose)  
 
 ## How to run:
 In order to run this app locally, the three components need to be started.
-- Postgres: `docker-compose up` in root folder
-- Backend: `mvn spring-boot:run` in backend folder
-- Frontend: `npm run dev` in frontend folder
+- **Postgres:** `docker-compose up` in root folder
+- **Backend:** `mvn spring-boot:run` in backend folder
+- **Frontend:** `npm run dev` in frontend folder
