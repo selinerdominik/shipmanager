@@ -18,3 +18,9 @@ In order to run this app locally, the three components need to be started.
 - **Postgres:** `docker-compose up` in root folder
 - **Backend:** `mvn spring-boot:run` in backend folder
 - **Frontend:** `npm run dev` in frontend folder
+
+## How to use:
+After starting the app, you can login with user credentials defined in application.yml:
+- **Username:** user
+- **Password:** password
+
