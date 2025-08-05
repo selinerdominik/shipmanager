@@ -20,7 +20,7 @@ In order to run this app locally, the three components need to be started.
 - **Frontend:** `npm run dev` in frontend folder
 
 ## How to use:
-After starting the app, you can login with user credentials defined in application.yml:
+After starting the app, you can open `http://localhost:5173/` and login with the following user credentials defined in application.yml:
 - **Username:** user
 - **Password:** password
 
